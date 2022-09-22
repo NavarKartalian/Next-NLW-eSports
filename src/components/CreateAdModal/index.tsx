@@ -3,7 +3,7 @@ import * as Checkbox from '@radix-ui/react-checkbox';
 import * as Select from '@radix-ui/react-select';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import { CaretDown, CaretUp, Check, GameController } from 'phosphor-react';
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { Input } from '../Form/Input';
 import { ToggleItem } from '../ToggleItem';
 import { api } from '../../services/api';
@@ -61,11 +61,14 @@ export function CreateAdModal({ games, isGameSelected, setIsGameSelected, setIsD
 
   return (
     <Dialog.Portal>
-      <Dialog.Overlay className='bg-black/60 inset-0 fixed' />
+      <Dialog.Overlay className='bg-black/60 inset-0 fixed z-10' />
 
-      <Dialog.Content className='fixed bg-[#2A2634] px-10 py-8 text-white top-1/2 left-1/2 
-        -translate-x-1/2 -translate-y-1/2 rounded-lg w-[480px] shadow-lg shadow-black/25'>
-        <Dialog.Title className='text-3xl font-black'>Publique um anúncio</Dialog.Title>
+      <Dialog.Content 
+        className='fixed bg-[#2A2634] px-10 py-8 text-white top-1/2 left-1/2 
+        -translate-x-1/2 -translate-y-1/2 rounded-lg max-w-[90%] w-full shadow-lg shadow-black/25 
+        md:max-w-[480px] z-10 max-h-96 overflow-y-scroll md:overflow-y-visible md:max-h-full'
+      >
+        <Dialog.Title className='text-xl md:text-3xl font-black'>Publique um anúncio</Dialog.Title>
 
         <form className='mt-8 flex flex-col gap-4' onSubmit={handleSubmit}>
           <div className='flex flex-col gap-2'>
@@ -80,19 +83,22 @@ export function CreateAdModal({ games, isGameSelected, setIsGameSelected, setIsD
               <Select.Trigger 
                 aria-label="Game" 
                 className={`flex flex-1 justify-between bg-zinc-900 py-3 px-4 rounded 
-                text-sm ${isGameSelected ? 'text-white' : 'text-zinc-500'}`}
+                text-xs md:text-sm ${isGameSelected ? 'text-white' : 'text-zinc-500'}`}
               >
                 <Select.Value placeholder='Selecione o game que deseja jogar' />
 
                 <Select.Icon className='text-white'>
-                  {isSelectOpen ? <CaretUp size={24} /> : <CaretDown size={24} />}
+                  {isSelectOpen ? 
+                    <CaretUp className='w-4 h-4 md:w-6 md:h-6' /> : 
+                    <CaretDown className='w-4 h-4 md:w-6 md:h-6' />
+                  }
                 </Select.Icon>
               </Select.Trigger>
 
-              <Select.Content className='fixed max-w-[400px] bg-zinc-900 px-2 py-3 text-white top-[55%] left-1/2 
-                -translate-x-1/2 -translate-y-1/2 rounded-lg w-[480px] shadow-lg shadow-black/25'>
+              <Select.Content className='fixed max-w-[300px] bg-zinc-900 px-2 py-3 text-white top-[55%] left-1/2 
+                -translate-x-1/2 -translate-y-1/2 rounded-lg w-[480px] shadow-lg shadow-black/25 md:max-w-[400px]'>
                 <Select.ScrollUpButton>
-                  <CaretUp size={24} />
+                  <CaretUp className='w-4 h-4 md:w-6 md:h-6' />
                 </Select.ScrollUpButton>
 
                 <Select.Viewport>
@@ -117,7 +123,7 @@ export function CreateAdModal({ games, isGameSelected, setIsGameSelected, setIsD
                 </Select.Viewport>
 
                 <Select.ScrollDownButton>
-                  <CaretDown size={24} />
+                  <CaretDown className='w-4 h-4 md:w-6 md:h-6' />
                 </Select.ScrollDownButton>
               </Select.Content>
             </Select.Root>
@@ -128,7 +134,7 @@ export function CreateAdModal({ games, isGameSelected, setIsGameSelected, setIsD
             <Input name='name' id='name' type='text' placeholder='Como te chamam dentro do game?' />
           </div>
 
-          <div className='grid grid-cols-2 gap-6'>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
             <div className='flex flex-col gap-2'>
               <label htmlFor='yearsPlaying'>Joga há quantos anos?</label>
               <Input name='yearsPlaying' id='yearsPlaying' type="number" placeholder='Tudo bem ser ZERO' />
@@ -140,7 +146,7 @@ export function CreateAdModal({ games, isGameSelected, setIsGameSelected, setIsD
             </div>
           </div>
 
-          <div className='flex gap-6'>
+          <div className='flex flex-col md:flex-row gap-6'>
             <div className='flex flex-col gap-2'>
               <label htmlFor="weekDays">Quando costuma jogar?</label>
 
@@ -163,7 +169,7 @@ export function CreateAdModal({ games, isGameSelected, setIsGameSelected, setIsD
             <div className='flex flex-col gap-2 flex-1'>
               <label htmlFor="hourStart">Qual horário do dia?</label>
 
-              <div className='grid grid-cols-2 gap-2'>
+              <div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
                 <input 
                   name='hourStart'
                   id='hourStart' 
@@ -196,7 +202,7 @@ export function CreateAdModal({ games, isGameSelected, setIsGameSelected, setIsD
             Costumo me conectar ao chat de voz
           </label>
 
-          <footer className='mt-4 flex justify-end gap-4'>
+          <footer className='mt-4 flex flex-col md:flex-row justify-end gap-4'>
             <Dialog.Close 
               className='bg-zinc-500 px-5 h-12 rounded-md font-semibold hover:bg-zinc-600'
             >
@@ -206,7 +212,7 @@ export function CreateAdModal({ games, isGameSelected, setIsGameSelected, setIsD
             <button 
               type='submit' 
               className='bg-violet-500 px-5 h-12 rounded-md font-semibold flex items-center gap-3
-              hover:bg-violet-600'
+              hover:bg-violet-600 justify-center'
             >
               <GameController size={24} />
               Encontrar Duo

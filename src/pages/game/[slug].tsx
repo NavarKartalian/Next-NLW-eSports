@@ -54,13 +54,28 @@ export default function Game({ data }: GameProps) {
     }).catch(err => console.log(err));
   }
 
+  const breakpoints = {
+    1024: {
+      slidesPerView: 3,
+      spaceBetween: 60,
+    },
+    650: {
+      slidesPerView: 2,
+      spaceBetween: 30,
+    },
+    0: {
+      slidesPerView: 1,
+      spaceBetween: 20
+    }
+  }
+
   return (
     <>
       <Head>
         <title>{data.game.title}</title>
       </Head>
       
-      <div className='flex flex-col gap-40'>
+      <div className='flex flex-col gap-10 2xl:gap-40'>
         <header className='flex justify-between items-center w-full py-12 px-8'>
           <Link href={'/'} passHref>
             <a>
@@ -72,16 +87,24 @@ export default function Game({ data }: GameProps) {
           <div className='w-9 h-9'/>
         </header>
 
-        <main className='flex w-full px-8 gap-14 max-w-[1440px] mx-auto'>
-          <Image 
-            src={data.game.bannerUrl} 
-            width={320} height={426} 
-            className='rounded-lg' 
-            alt="" 
-            quality={90}
-          />
+        <main 
+          className='flex flex-col 2xl:flex-row w-full px-8 gap-14 max-w-[1440px] mx-auto
+          mb-5 2xl:mb-0'
+        >
+          <div 
+            className="relative w-full max-w-4xl h-60 mx-auto 2xl:w-[320px] 2xl:h-[426px]"
+          >
+            <Image 
+              src={data.game.bannerUrl} 
+              layout='fill'
+              className='rounded-lg' 
+              objectFit="cover"
+              alt="" 
+              quality={100}
+            />
+          </div>
 
-          <div className='min-w-0 max-w-4xl px-2 w-full'>
+          <div className='min-w-0 max-w-4xl px-2 w-full mx-auto'>
             <h2 className='text-4xl text-white font-black mb-8'>{data.game.title}</h2>
 
             { data.ads.length > 0 ? (
@@ -89,6 +112,7 @@ export default function Game({ data }: GameProps) {
                 modules={[Pagination, A11y]}
                 spaceBetween={60}
                 slidesPerView={3}
+                breakpoints={breakpoints}
                 pagination={{ clickable: true }}
               >
                 {data.ads.map((duo) =>  (
@@ -115,8 +139,10 @@ export default function Game({ data }: GameProps) {
                   </SwiperSlide>
                 ))}
               </Swiper>
+
               ) : (
-                <h2 className='text-white font-bold text-2xl'>
+
+                <h2 className='text-white font-bold text-2xl mb-5'>
                   Nenhum anúncio ainda, seja o primeiro!
                 </h2>
               )}
@@ -130,9 +156,11 @@ export default function Game({ data }: GameProps) {
           <Dialog.Portal>
             <Dialog.Overlay className='bg-black/60 inset-0 fixed z-10' />
 
-            <Dialog.Content className='fixed bg-[#2A2634] px-10 py-8 text-white top-1/2 left-1/2 
-            -translate-x-1/2 -translate-y-1/2 rounded-lg w-[320px] shadow-lg shadow-black/25 z-10 flex
-            justify-center items-center flex-col'>
+            <Dialog.Content 
+              className='fixed bg-[#2A2634] px-10 py-8 text-white top-1/2 left-1/2 
+              -translate-x-1/2 -translate-y-1/2 rounded-lg w-[320px] shadow-lg shadow-black/25 z-10 flex
+              justify-center items-center flex-col'
+            >
               <Dialog.Close className="absolute top-4 right-4">
                 <X size={20} className='text-zinc-500' />
               </Dialog.Close>
@@ -150,7 +178,7 @@ export default function Game({ data }: GameProps) {
               <div className="w-full text-center font-semibold">
                 <h2 className="mb-2">Adicione no Discord</h2>
 
-                <div className="w-full bg-zinc-900 text-zinc-200 font-normal py-3 overflow-hidden">
+                <div className="w-full rounded-md bg-zinc-900 text-zinc-200 font-normal py-3 overflow-hidden">
                   {discordUser.discord}
                 </div>
               </div>
