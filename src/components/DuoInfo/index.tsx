@@ -1,4 +1,3 @@
-
 interface DuoInfoProps {
   label: string;
   value: string | number;

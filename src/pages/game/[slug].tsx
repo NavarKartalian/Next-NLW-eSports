@@ -15,6 +15,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
 import "swiper/css/pagination";
+import { GamesProps } from "../../types/game";
 
 interface GameProps {
   data: {
@@ -28,13 +29,7 @@ interface GameProps {
       yearsPlaying: number;
     }[];
 
-    game: {
-      title: string;
-      bannerUrl: string;
-      _count: {
-        Ads: number;
-      }
-    }
+    game: GamesProps;
   }
 }
 
@@ -184,7 +179,6 @@ export default function Game({ data }: GameProps) {
               </div>
             </Dialog.Content>
           </Dialog.Portal>
-
         </Dialog.Root>
       </div>
     </>

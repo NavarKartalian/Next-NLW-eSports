@@ -1,13 +1,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { GamesProps } from '../../types/game';
 
 interface GameBannerProps {
-  game: {
-    id: string;
-    bannerUrl: string;
-    title: string;
-    _count: { Ads: number };
-  }
+  game: GamesProps;
 }
 
 export function GameBanner({ game }: GameBannerProps) {

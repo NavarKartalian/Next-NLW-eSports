@@ -17,13 +17,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 
+import { GamesProps } from '../types/game';
+
 interface HomeProps {
-  data: {
-    id: string;
-    bannerUrl: string;
-    title: string;
-    _count: { Ads: number };
-  }[]
+  data: GamesProps[];
 }
 
 export default function Home({ data }: HomeProps) {
